@@ -1,4 +1,4 @@
-import java.util.ArrayList;
+import java.util.*;
 
 public class Course {
 	
@@ -13,6 +13,7 @@ public class Course {
 		this.name = name;
 		this.profs = profs;
 	}
+	
 	
 	public void addProf(String name) {
 		profs.add(name);
