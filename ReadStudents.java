@@ -57,7 +57,7 @@ public class ReadStudents {
 			// Taking courses
 			while(true) {
 				String courseName = s.next();
-				if (courseName.equals("\n")) {
+				if (courseName.equals("~")) {
 					break;
 				}
 				curStudent.takeCourse(courseMap.get(courseName));
@@ -71,7 +71,7 @@ public class ReadStudents {
 	}
 	
 	// Load from file
-	public void storeStudents(String fname, ArrayList<Student> students) throws IOException {
+	public static void storeStudents(String fname, ArrayList<Student> students) throws IOException {
 		PrintWriter pw = new PrintWriter(new BufferedWriter(new FileWriter(fname)));
 		for(int i = 0; i < students.size(); i++) {
 			// Save name & id
@@ -88,6 +88,7 @@ public class ReadStudents {
 			for(int j = 0; j < takingArray.length; j++) {
 				pw.print(((Course)takingArray[j]).getName() + " ");
 			}
+			pw.print("~ ");
 			pw.println();
 		}
 		pw.close();

@@ -19,6 +19,9 @@ public class Student {
 	// Checks if this student has the proper prerequisites to take this course
 	public boolean checkPrereq(Course c) {
 		ArrayList<Course> prereqs = c.getPrereqs();
+		if (prereqs == null) {
+			return true;
+		}
 		// Check if all prereqs appear in taken courses
 		for(int i = 0; i < prereqs.size(); i++) {
 			if (!taken.contains(prereqs.get(i))) {
