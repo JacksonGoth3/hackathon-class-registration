@@ -1,3 +1,4 @@
+import java.util.ArrayList;
 import java.util.HashSet;
 
 public class Student {
@@ -13,6 +14,13 @@ public class Student {
 	}
 	
 	public boolean checkPrereq(Course c) {
+		ArrayList<Course> prereqs = c.getPrereqs();
+		// Check if all prereqs appear in taken courses
+		for(int i = 0; i < prereqs.size(); i++) {
+			if (!taken.contains(prereqs.get(i))) {
+				return false;
+			}
+		}
 		return true;
 	}
 	
