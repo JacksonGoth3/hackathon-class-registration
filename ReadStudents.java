@@ -62,13 +62,14 @@ public class ReadStudents {
 			// Save classes taken
 			Object[] takenArray = s.getTaken().toArray();
 			for(int j = 0; j < takenArray.length; j++) {
-				pw.println(((Course)takenArray[j]).getName() + " ");
+				pw.print(((Course)takenArray[j]).getName() + " ");
 			}
 			pw.print("~ ");
 			Object[] takingArray = s.getTaking().toArray();
 			for(int j = 0; j < takingArray.length; j++) {
-				pw.println(((Course)takingArray[j]).getName() + " ");
+				pw.print(((Course)takingArray[j]).getName() + " ");
 			}
+			pw.println();
 		}
 		pw.close();
 	}
