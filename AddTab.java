@@ -56,15 +56,17 @@ public class AddTab extends RegisterTab {
 	private void addCourseForStudent(int studentID, int courseID) {
 		try {
 			ArrayList<Student> students = ReadStudents.loadStudents("students.txt");
-			for(Student s : students) {
-				if(s.getId() == studentID) {
-					s.takeCourse(GUI.courseMap.get(courseID));
-					return;
+			if(students != null) {
+				for(Student s : students) {
+					if(s.getId() == studentID) {
+						s.takeCourse(courseID);
+						return;
+					}
 				}
 			}
 			Random generator = new Random();
-			Student newStudent = new Student(generator.nextInt(1000) + " Smith", generator.nextInt(10000));
-			newStudent.takeCourse(GUI.courseMap.get(courseID));
+			Student newStudent = new Student(generator.nextInt(1000) + " Smith", studentID);
+			newStudent.takeCourse(courseID);
 			students.add(newStudent);
 			ReadStudents.storeStudents("students.txt", students);
 		} catch (IOException e) {
