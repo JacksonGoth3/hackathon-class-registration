@@ -18,7 +18,7 @@ public class Student {
 	
 	// Checks if this student has the proper prerequisites to take this course
 	public boolean checkPrereq(int c) {
-		ArrayList<Course> prereqs = c.getPrereqs();
+		ArrayList<Course> prereqs = GUI.courseMap.get(c).getPrereqs();
 		if (prereqs == null) {
 			return true;
 		}
