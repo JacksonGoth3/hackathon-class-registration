@@ -18,6 +18,7 @@ public class Student {
 	
 	// Checks if this student has the proper prerequisites to take this course
 	public boolean checkPrereq(int c) {
+		/*
 		ArrayList<Course> prereqs = GUI.courseMap.get(c).getPrereqs();
 		if (prereqs == null) {
 			return true;
@@ -28,6 +29,7 @@ public class Student {
 				return false;
 			}
 		}
+		*/
 		return true;
 	}
 	// Student takes this course, returns false if the student does not have the proper prerequisites
