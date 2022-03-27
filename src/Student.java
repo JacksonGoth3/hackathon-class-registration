@@ -13,6 +13,7 @@ public class Student {
 		taken = new HashSet<>();
 	}
 	
+	// Checks if this student has the proper prerequisites to take this course
 	public boolean checkPrereq(Course c) {
 		ArrayList<Course> prereqs = c.getPrereqs();
 		// Check if all prereqs appear in taken courses
@@ -23,13 +24,20 @@ public class Student {
 		}
 		return true;
 	}
-	
+	// Student takes this course, returns false if the student does not have the proper prerequisites
 	public boolean takeCourse(Course c) {
 		if (checkPrereq(c)) {
 			taken.add(c);
 			return true;
 		}
 		return false;
+	}
+	
+	public String getName() {
+		return name;
+	}
+	public String getId() {
+		return id;
 	}
 	
 	
