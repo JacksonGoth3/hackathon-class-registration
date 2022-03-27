@@ -40,7 +40,7 @@ public class ReadStudents {
 	public static ArrayList<Student> loadStudents(String fname) throws IOException {
 		ArrayList<Student> students = new ArrayList<>();
 		//HashMap<String, Course> courseMap = getCourseMap("courses-1.txt");
-		Scanner s = new Scanner(new FileInputStream(fname));
+		Scanner s = new Scanner(new File(fname));
 		while(s.hasNext()) {
 			// Name & ID
 			String name = s.next();
