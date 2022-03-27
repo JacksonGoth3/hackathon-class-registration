@@ -39,7 +39,7 @@ public class ReadStudents {
 	
 	public static ArrayList<Student> loadStudents(String fname) throws IOException {
 		ArrayList<Student> students = new ArrayList<>();
-		HashMap<String, Course> courseMap = getCourseMap("courses-1.txt");
+		//HashMap<String, Course> courseMap = getCourseMap("courses-1.txt");
 		Scanner s = new Scanner(new FileInputStream(fname));
 		while(s.hasNext()) {
 			// Name & ID
@@ -52,7 +52,7 @@ public class ReadStudents {
 				if (courseName.equals("~")) {
 					break;
 				}
-				curStudent.addTaken(courseMap.get(courseName));
+				curStudent.addTaken(Integer.parseInt(courseName));
 			}
 			// Taking courses
 			while(true) {
@@ -60,7 +60,7 @@ public class ReadStudents {
 				if (courseName.equals("~")) {
 					break;
 				}
-				curStudent.takeCourse(courseMap.get(courseName));
+				curStudent.takeCourse(Integer.parseInt(courseName));
 			}
 			// Add student to array
 			students.add(curStudent);
@@ -81,12 +81,12 @@ public class ReadStudents {
 			// Save classes taken
 			Object[] takenArray = s.getTaken().toArray();
 			for(int j = 0; j < takenArray.length; j++) {
-				pw.print(((Course)takenArray[j]).getName() + " ");
+				pw.print((Integer)takenArray[j] + " ");
 			}
 			pw.print("~ ");
 			Object[] takingArray = s.getTaking().toArray();
 			for(int j = 0; j < takingArray.length; j++) {
-				pw.print(((Course)takingArray[j]).getName() + " ");
+				pw.print((Integer)takingArray[j] + " ");
 			}
 			pw.print("~ ");
 			pw.println();

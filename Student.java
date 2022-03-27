@@ -5,8 +5,8 @@ public class Student {
 	
 	private String name;
 	private int id;
-	private HashSet<Course> taken;
-	private HashSet<Course> taking;
+	private HashSet<Integer> taken;
+	private HashSet<Integer> taking;
 	
 	public Student(String name, int id) {
 		this.name = name;
@@ -17,7 +17,7 @@ public class Student {
 	
 	
 	// Checks if this student has the proper prerequisites to take this course
-	public boolean checkPrereq(Course c) {
+	public boolean checkPrereq(int c) {
 		ArrayList<Course> prereqs = c.getPrereqs();
 		if (prereqs == null) {
 			return true;
@@ -31,7 +31,7 @@ public class Student {
 		return true;
 	}
 	// Student takes this course, returns false if the student does not have the proper prerequisites
-	public boolean takeCourse(Course c) {
+	public boolean takeCourse(int c) {
 		if (checkPrereq(c)) {
 			taking.add(c);
 			return true;
@@ -39,11 +39,11 @@ public class Student {
 		return false;
 	}
 	// Add course to already taken
-	public void addTaken(Course c) {
+	public void addTaken(int c) {
 		taken.add(c);
 	}
 	
-	public void removeCourse(Course c) {
+	public void removeCourse(int c) {
 		taking.remove(c);
 	}
 	
@@ -53,10 +53,10 @@ public class Student {
 	public int getId() {
 		return id;
 	}
-	public HashSet<Course> getTaking() {
+	public HashSet<Integer> getTaking() {
 		return taking;
 	}
-	public HashSet<Course> getTaken() {
+	public HashSet<Integer> getTaken() {
 		return taken;
 	}
 	
