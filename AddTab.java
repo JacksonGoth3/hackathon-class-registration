@@ -1,5 +1,7 @@
 import java.awt.Dimension;
-
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.util.Scanner;
 import javax.swing.JButton;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
@@ -13,6 +15,7 @@ public class AddTab extends RegisterTab {
 	private static AddTab instance = null;
 	private JPanel ioPanel = null;
 	private JPanel tablePanel = null;
+	private final String[] colNames = {"Course", "Professor", "Days", "Times", "Credits"};
 	
 	private AddTab() {
 		
@@ -24,30 +27,6 @@ public class AddTab extends RegisterTab {
 		}
 		return instance;
 	}
-
-	private TableModel getTableModel() {
-		return new DefaultTableModel() {
-
-		    private static final long serialVersionUID = 1L;
-		    String[] names = {"Course", "Professor", "Days", "Times", "Credits"};
-
-		    public int getColumnCount() {
-		         return 5;
-		    }
-
-		    public boolean isCellEditable(int row, int col) {
-		         return false;
-		    }
-
-		    public int getRowCount() {
-		         return 100;
-		    }
-
-		    public String getColumnName(int index) {
-		        return names[index];
-		    }
-		};
-	}
 	
 	protected void initIOPanel() {
 		ioPanel = new JPanel();
@@ -58,9 +37,35 @@ public class AddTab extends RegisterTab {
 
 	protected void initTablePanel() {
 		tablePanel = new JPanel();
-		JTable table = new JTable(getTableModel());
+		JTable table = new JTable(getAllClasses("courses-1.txt"), colNames);
 		tablePanel.add(new JScrollPane(table));
-		tablePanel.setMinimumSize(new Dimension(400, 600));
+	}
+	
+	private String[][] getAllClasses(String filename) {
+		String[][] output = null;
+		try {
+			Scanner s = new Scanner(new File(filename));
+			int lineCount = 0;
+			while(s.hasNextLine()) {
+				s.nextLine();
+				lineCount++;
+			}
+			s = new Scanner(new File(filename));
+			output = new String[lineCount][5];
+			for(int i = 0; i < lineCount; i++) {
+				String[] parts = s.nextLine().split(" ");
+				String[] newClass = new String[colNames.length];
+				for(int j = 0; j < newClass.length - 1; j++) {
+					newClass[j] = parts[j];
+				}
+				newClass[newClass.length - 1] = parts[parts.length - 1];
+				output[i] = newClass;
+			}
+			s.close();
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+		}
+		return output;
 	}
 	
 	public JPanel getIOPanel() {
