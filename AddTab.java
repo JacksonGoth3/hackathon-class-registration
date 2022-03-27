@@ -2,8 +2,9 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Scanner;
-
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -22,7 +23,7 @@ public class AddTab extends RegisterTab {
 	private JButton submit = null;
 	
 	private JPanel tablePanel = null;
-	public static final String[] colNames = {"Course", "Professor", "Days", "Times", "Credits"};
+	public static final String[] colNames = {"ID", "Course", "Professor", "Days", "Times", "Credits"};
 	
 	private AddTab() {
 		
@@ -39,19 +40,28 @@ public class AddTab extends RegisterTab {
 		ioPanel = new JPanel();
 		ioPanel.add(new JLabel("Student ID:"));
 		ioPanel.add(idField = new JTextField(10));
-		ioPanel.add(new JLabel("Course:"));
+		ioPanel.add(new JLabel("Course ID:"));
 		ioPanel.add(courseField = new JTextField(10));
 		ioPanel.add(submit = new JButton("Submit"));
 		submit.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				addCourseForStudent(Integer.parseInt(idField.getText()), courseField.getText());
+				addCourseForStudent(Integer.parseInt(idField.getText()), Integer.parseInt(courseField.getText()));
 			}
 		});
 		ioPanel.setBorder(new EmptyBorder(10, 10, 10, 10));
 	}
 
-	private void addCourseForStudent(int studentID, String course) {
-		
+	private void addCourseForStudent(int studentID, int courseID) {
+		try {
+			ArrayList<Student> students = ReadStudents.loadStudents("students.txt");
+			for(Student s : students) {
+				if(s.getId() == studentID) {
+//					s.takeCourse(courseMap.get())
+				}
+			}
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 	}
 	
 	protected void initTablePanel() {
@@ -70,7 +80,7 @@ public class AddTab extends RegisterTab {
 				lineCount++;
 			}
 			s = new Scanner(new File(filename));
-			output = new String[lineCount][5];
+			output = new String[lineCount][colNames.length];
 			for(int i = 0; i < lineCount; i++) {
 				String[] parts = s.nextLine().split(" ");
 				String[] newClass = new String[colNames.length];
