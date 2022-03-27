@@ -1,4 +1,8 @@
 import java.awt.BorderLayout;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.util.HashMap;
+import java.util.Scanner;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JTabbedPane;
@@ -9,6 +13,7 @@ public class GUI {
 
 	private JFrame frame; //Main frame
 	private JTabbedPane tabs;
+	public static HashMap<Integer, Course> courseMap;
 	
 	public GUI() {
 		frame = new JFrame("Class Registration");
@@ -59,8 +64,23 @@ public class GUI {
 		frame.getContentPane().add(tab.getIOPanel(), BorderLayout.PAGE_END);
 	}
 	
+	private static void getCourseMap(String filename) {
+		courseMap = new HashMap<>();
+		try {
+			Scanner s = new Scanner(new File(filename));
+			while(s.hasNextLine()) {
+				String[] parts = s.nextLine().split(" ");
+				courseMap.put(Integer.parseInt(parts[0]), new Course(parts[0]));
+			}
+			s.close();
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+		}
+	}
+	
 	public static void main(String[] args) {
 		GUI gui = new GUI();
+		getCourseMap("courses-1.txt");
 	}
 	
 }

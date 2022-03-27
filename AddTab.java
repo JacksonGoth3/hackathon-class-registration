@@ -4,7 +4,9 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Random;
 import java.util.Scanner;
+
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -56,9 +58,15 @@ public class AddTab extends RegisterTab {
 			ArrayList<Student> students = ReadStudents.loadStudents("students.txt");
 			for(Student s : students) {
 				if(s.getId() == studentID) {
-//					s.takeCourse(courseMap.get())
+					s.takeCourse(GUI.courseMap.get(courseID));
+					return;
 				}
 			}
+			Random generator = new Random();
+			Student newStudent = new Student(generator.nextInt(1000) + " Smith", generator.nextInt(10000));
+			newStudent.takeCourse(GUI.courseMap.get(courseID));
+			students.add(newStudent);
+			ReadStudents.storeStudents("students.txt", students);
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
