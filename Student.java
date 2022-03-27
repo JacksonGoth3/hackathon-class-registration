@@ -24,7 +24,7 @@ public class Student {
 		}
 		// Check if all prereqs appear in taken courses
 		for(int i = 0; i < prereqs.size(); i++) {
-			if (!taken.contains(prereqs.get(i))) {
+			if (!taken.contains(prereqs.get(i).getId())) {
 				return false;
 			}
 		}

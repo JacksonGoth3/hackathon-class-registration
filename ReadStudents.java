@@ -37,10 +37,15 @@ public class ReadStudents {
 		return output;
 	}
 	
-	public static ArrayList<Student> loadStudents(String fname) throws IOException {
+	public static ArrayList<Student> loadStudents(String fname) {
 		ArrayList<Student> students = new ArrayList<>();
 		//HashMap<String, Course> courseMap = getCourseMap("courses-1.txt");
-		Scanner s = new Scanner(new File(fname));
+		Scanner s;
+		try {
+			s = new Scanner(new File(fname));
+		} catch (FileNotFoundException e) {
+			return null;
+		}
 		while(s.hasNext()) {
 			// Name & ID
 			String name = s.next();
