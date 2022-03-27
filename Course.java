@@ -2,6 +2,7 @@ import java.util.*;
 
 public class Course {
 	
+	private int id;
 	private String name;
 	private ArrayList<Course> prereqs;
 	private ArrayList<Session> sessions;
