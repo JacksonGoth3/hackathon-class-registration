@@ -1,9 +1,12 @@
 import java.io.BufferedWriter;
+import java.io.File;
 import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Scanner;
 
@@ -19,8 +22,24 @@ public class ReadStudents {
 		return null;
 	}
 	
-	public static ArrayList<Student> loadStudents(String fname, ArrayList<Course> courseList) throws IOException {
+	private static HashMap<String, Course> getCourseMap(String filename) {
+		HashMap<String, Course> output = new HashMap<>();
+		try {
+			Scanner s = new Scanner(new File(filename));
+			while(s.hasNextLine()) {
+				String[] parts = s.nextLine().split(" ");
+				output.put(parts[0], new Course(parts[0]));
+			}
+			s.close();
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+		}
+		return output;
+	}
+	
+	public static ArrayList<Student> loadStudents(String fname) throws IOException {
 		ArrayList<Student> students = new ArrayList<>();
+		HashMap<String, Course> courseMap = getCourseMap("courses-1.txt");
 		Scanner s = new Scanner(new FileInputStream(fname));
 		while(s.hasNext()) {
 			// Name & ID
@@ -33,7 +52,7 @@ public class ReadStudents {
 				if (courseName == "~") {
 					break;
 				}
-				curStudent.addTaken(getCourse(courseName, courseList));
+				curStudent.addTaken(courseMap.get(courseName));
 			}
 			// Taking courses
 			while(true) {
@@ -41,7 +60,7 @@ public class ReadStudents {
 				if (courseName == "~") {
 					break;
 				}
-				curStudent.takeCourse(getCourse(courseName, courseList));
+				curStudent.takeCourse(courseMap.get(courseName));
 			}
 			// Add student to array
 			students.add(curStudent);

@@ -1,19 +1,26 @@
-import java.awt.Dimension;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.Scanner;
+
 import javax.swing.JButton;
+import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
+import javax.swing.JTextField;
 import javax.swing.border.EmptyBorder;
-import javax.swing.table.DefaultTableModel;
-import javax.swing.table.TableModel;
 
 public class AddTab extends RegisterTab {
 
 	private static AddTab instance = null;
+	
 	private JPanel ioPanel = null;
+	private JTextField idField = null;
+	private JTextField courseField = null;
+	private JButton submit = null;
+	
 	private JPanel tablePanel = null;
 	public static final String[] colNames = {"Course", "Professor", "Days", "Times", "Credits"};
 	
@@ -30,11 +37,23 @@ public class AddTab extends RegisterTab {
 	
 	protected void initIOPanel() {
 		ioPanel = new JPanel();
-		ioPanel.add(new JButton("Push1"));
-		ioPanel.add(new JButton("Push2"));
+		ioPanel.add(new JLabel("Student ID:"));
+		ioPanel.add(idField = new JTextField(10));
+		ioPanel.add(new JLabel("Course:"));
+		ioPanel.add(courseField = new JTextField(10));
+		ioPanel.add(submit = new JButton("Submit"));
+		submit.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				addCourseForStudent(Integer.parseInt(idField.getText()), courseField.getText());
+			}
+		});
 		ioPanel.setBorder(new EmptyBorder(10, 10, 10, 10));
 	}
 
+	private void addCourseForStudent(int studentID, String course) {
+		
+	}
+	
 	protected void initTablePanel() {
 		tablePanel = new JPanel();
 		JTable table = new JTable(getAllClasses("courses-1.txt"), colNames);
