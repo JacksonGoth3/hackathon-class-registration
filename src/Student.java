@@ -15,14 +15,40 @@ public class Student {
 		taking = new HashSet<>();
 	}
 	// Load from file
-	public Student(String fname) throws IOException {
+	public Student(String fname, ArrayList<Course> courseList) throws IOException {
+		taken = new HashSet<>();
+		taking = new HashSet<>();
 		Scanner s = new Scanner(new FileInputStream(fname));
 		name = s.nextLine();
 		id = s.nextInt();
-		// TODO: Retrieve the courses the student is taking
+		// Retrieve the courses the student has taken
+		int numTaken = s.nextInt();
+		for(int i = 0; i < numTaken; i++) {
+			String name = s.nextLine();
+			// Get course with that name
+			for(int j = 0; j < courseList.size(); j++) {
+				Course c = courseList.get(j);
+				if (c.getName() == name) {
+					taken.add(c);
+				}
+			}
+		}
+		// Retrieve the courses the student is taking
+		int numTaking = s.nextInt();
+		for(int i = 0; i < numTaking; i++) {
+			String name = s.nextLine();
+			// Get course with that name
+			for(int j = 0; j < courseList.size(); j++) {
+				Course c = courseList.get(j);
+				if (c.getName() == name) {
+					taken.add(c);
+				}
+			}
+		}
 		s.close();
 	}
 	
+	// Load from file
 	public void storeStudent(String fname) throws IOException {
 		PrintWriter pw = new PrintWriter(new BufferedWriter(new FileWriter(fname)));
 		// Save name & id
