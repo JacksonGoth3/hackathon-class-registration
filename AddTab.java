@@ -15,7 +15,7 @@ public class AddTab extends RegisterTab {
 	private static AddTab instance = null;
 	private JPanel ioPanel = null;
 	private JPanel tablePanel = null;
-	private final String[] colNames = {"Course", "Professor", "Days", "Times", "Credits"};
+	public static final String[] colNames = {"Course", "Professor", "Days", "Times", "Credits"};
 	
 	private AddTab() {
 		
@@ -41,7 +41,7 @@ public class AddTab extends RegisterTab {
 		tablePanel.add(new JScrollPane(table));
 	}
 	
-	private String[][] getAllClasses(String filename) {
+	public static String[][] getAllClasses(String filename) {
 		String[][] output = null;
 		try {
 			Scanner s = new Scanner(new File(filename));
