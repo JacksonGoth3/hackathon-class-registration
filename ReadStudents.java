@@ -15,7 +15,7 @@ public class ReadStudents {
 	public static Course getCourse(String name, ArrayList<Course> courseList) {
 		for(int i = 0; i < courseList.size(); i++) {
 			Course c = courseList.get(i);
-			if (c.getName() == name) {
+			if (c.getName().equals(name)) {
 				return c;
 			}
 		}
@@ -49,7 +49,7 @@ public class ReadStudents {
 			// Taken courses
 			while(true) {
 				String courseName = s.next();
-				if (courseName == "~") {
+				if (courseName.equals("~")) {
 					break;
 				}
 				curStudent.addTaken(courseMap.get(courseName));
@@ -57,7 +57,7 @@ public class ReadStudents {
 			// Taking courses
 			while(true) {
 				String courseName = s.next();
-				if (courseName == "~") {
+				if (courseName.equals("\n")) {
 					break;
 				}
 				curStudent.takeCourse(courseMap.get(courseName));
